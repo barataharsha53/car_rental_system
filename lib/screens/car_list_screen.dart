@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 
-import 'car_details_screen.dart';
+import 'package:flutter/material.dart';
 
 class CarListScreen extends StatelessWidget {
   final String selectedType;
@@ -14,230 +13,178 @@ class CarListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> cars = [];
+    final List<Map<String, dynamic>> cars = [
+      {
+        'name': 'Maruti Swift',
+        'price': 1800,
+        'seats': 5,
+        'fuel': 'Petrol',
+        'icon': Icons.directions_car,
+      },
+      {
+        'name': 'Hyundai i20',
+        'price': 2200,
+        'seats': 5,
+        'fuel': 'Petrol',
+        'icon': Icons.directions_car_filled,
+      },
+      {
+        'name': 'Hyundai Creta',
+        'price': 3200,
+        'seats': 5,
+        'fuel': 'Petrol',
+        'icon': Icons.directions_car,
+      },
+      {
+        'name': 'Toyota Innova',
+        'price': 4000,
+        'seats': 7,
+        'fuel': 'Diesel',
+        'icon': Icons.airport_shuttle,
+      },
+      {
+        'name': 'Toyota Camry',
+        'price': 5500,
+        'seats': 5,
+        'fuel': 'Hybrid',
+        'icon': Icons.directions_car_filled,
+      },
+      {
+        'name': 'Premium Luxury Car',
+        'price': 7500,
+        'seats': 5,
+        'fuel': 'Petrol',
+        'icon': Icons.car_rental,
+      },
+    ];
 
-    // ================= SEDAN =================
-    if (selectedType == 'Sedan') {
-      if (selectedCategory == 'Economy Class') {
-        cars = [
-          {
-            'name': 'Maruti Suzuki Dzire',
-            'price': '₹2500/day',
-            'image': 'assets/images/dzire.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Standard Class') {
-        cars = [
-          {
-            'name': 'Honda City',
-            'price': '₹3500/day',
-            'image': 'assets/images/city.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Premium Class') {
-        cars = [
-          {
-            'name': 'Skoda Slavia',
-            'price': '₹5000/day',
-            'image': 'assets/images/slavia.jpg',
-          },
-        ];
-      }
-    }
-    // ================= HATCHBACK =================
-    else if (selectedType == 'Hatchback') {
-      if (selectedCategory == 'Economy Class') {
-        cars = [
-          {
-            'name': 'Maruti Swift',
-            'price': '₹2000/day',
-            'image': 'assets/images/swift.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Standard Class') {
-        cars = [
-          {
-            'name': 'Hyundai i20',
-            'price': '₹3000/day',
-            'image': 'assets/images/i20.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Premium Class') {
-        cars = [
-          {
-            'name': 'Hyundai i20 Premium',
-            'price': '₹3500/day',
-            'image': 'assets/images/i20.jpg',
-          },
-        ];
-      }
-    }
-    // ================= SUV =================
-    else if (selectedType == 'SUV') {
-      if (selectedCategory == 'Economy Class') {
-        cars = [
-          {
-            'name': 'Maruti Brezza',
-            'price': '₹3000/day',
-            'image': 'assets/images/brezza.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Standard Class') {
-        cars = [
-          {
-            'name': 'Hyundai Creta',
-            'price': '₹4000/day',
-            'image': 'assets/images/creata.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Premium Class') {
-        cars = [
-          {
-            'name': 'Hyundai Venue',
-            'price': '₹5500/day',
-            'image': 'assets/images/venue.jpg',
-          },
-        ];
-      }
-    }
-    // ================= MPV =================
-    else if (selectedType == 'MPV') {
-      if (selectedCategory == 'Economy Class') {
-        cars = [
-          {
-            'name': 'Kia Carens',
-            'price': '₹3500/day',
-            'image': 'assets/images/kia_carens.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Standard Class') {
-        cars = [
-          {
-            'name': 'Toyota Innova',
-            'price': '₹5000/day',
-            'image': 'assets/images/innova.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Premium Class') {
-        cars = [
-          {
-            'name': 'Kia Carnival',
-            'price': '₹7000/day',
-            'image': 'assets/images/carnival.jpg',
-          },
-        ];
-      }
+    final List<Map<String, dynamic>> filteredCars;
+
+    if (selectedCategory == 'Economy Class') {
+      filteredCars = cars.where((car) => car['price'] <= 2500).toList();
+    } else if (selectedCategory == 'Standard Class') {
+      filteredCars = cars
+          .where((car) =>
+              car['price'] > 2500 && car['price'] <= 4500)
+          .toList();
+    } else {
+      filteredCars =
+          cars.where((car) => car['price'] > 4500).toList();
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('$selectedCategory Cars'), centerTitle: true),
+      appBar: AppBar(
+        title: Text(selectedCategory),
+      ),
       body: Container(
-        width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFE3F2FD), Color(0xFFF3E5F5), Color(0xFFE8F5E9)],
+            colors: [
+              Color(0xFFE3F2FD),
+              Color(0xFFFCE4EC),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-        child: cars.isEmpty
-            ? const Center(
-                child: Text(
-                  'No cars available',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                '$selectedType • ${filteredCars.length} cars available',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-              )
-            : GridView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: cars.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 1.5,
-                ),
-                itemBuilder: (context, index) {
-                  final car = cars[index];
-
-                  return InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CarDetailsScreen(
-                            carName: car['name']!,
-                            carPrice: car['price']!,
-                            carImage: car['image']!,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      elevation: 6,
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            Expanded(
+              child: filteredCars.isEmpty
+                  ? const Center(
+                      child: Text('No cars available in this category.'),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
                       ),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: Image.asset(
-                                car['image']!,
-                                fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: Colors.blue.shade50,
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.directions_car,
-                                        size: 70,
-                                        color: Colors.blue,
-                                      ),
+                      itemCount: filteredCars.length,
+                      itemBuilder: (context, index) {
+                        final car = filteredCars[index];
+
+                        return Card(
+                          elevation: 4,
+                          margin: const EdgeInsets.only(bottom: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.all(16),
+                            leading: CircleAvatar(
+                              radius: 28,
+                              backgroundColor:
+                                  const Color(0xFFBBDEFB),
+                              child: Icon(
+                                car['icon'] as IconData,
+                                color: const Color(0xFF1565C0),
+                                size: 30,
+                              ),
+                            ),
+                            title: Text(
+                              car['name'] as String,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                              ),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Text(
+                                '${car['seats']} seats • ${car['fuel']}\n'
+                                '₹${car['price']} per day',
+                              ),
+                            ),
+                            isThreeLine: true,
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 18,
+                            ),
+                            onTap: () {
+                              showDialog<void>(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      car['name'] as String,
                                     ),
+                                    content: Text(
+                                      'Category: $selectedCategory\n'
+                                      'Fuel: ${car['fuel']}\n'
+                                      'Seats: ${car['seats']}\n'
+                                      'Price: ₹${car['price']} per day\n\n'
+                                      'This is a demonstration app. '
+                                      'Actual availability and pricing '
+                                      'must be verified before booking.',
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(dialogContext),
+                                        child: const Text('Close'),
+                                      ),
+                                    ],
                                   );
                                 },
-                              ),
-                            ),
+                              );
+                            },
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              width: double.infinity,
-                              color: Colors.white,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    car['name']!,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    car['price']!,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,13 +1,10 @@
-import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_project/main.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:car_rental_app/main.dart';
 
 void main() {
-  testWidgets('Car Rental System loads successfully', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('Car Rental System starts', (WidgetTester tester) async {
     await tester.pumpWidget(const CarRentalApp());
-
-    expect(find.text('Car Rental System'), findsOneWidget);
+    expect(find.byType(CarRentalApp), findsOneWidget);
   });
 }

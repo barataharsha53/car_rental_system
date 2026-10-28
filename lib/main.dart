@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'screens/car_category_screen.dart';
+import 'screens/car_type_screen.dart';
 
 void main() {
   runApp(const CarRentalApp());
@@ -13,21 +12,12 @@ class CarRentalApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Car Rental App',
+      title: 'Car Rental System',
       theme: ThemeData(
+        colorSchemeSeed: Colors.blue,
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1565C0),
-        ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1565C0),
-          foregroundColor: Colors.white,
-          centerTitle: true,
-        ),
       ),
-      home: const CarCategoryScreen(
-        selectedType: 'Car',
-      ),
+      home: const CarTypeScreen(),
     );
   }
 }

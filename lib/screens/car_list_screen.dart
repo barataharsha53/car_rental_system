@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'car_details_screen.dart';
 
 class CarListScreen extends StatelessWidget {
@@ -12,130 +12,142 @@ class CarListScreen extends StatelessWidget {
     required this.selectedCategory,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    List<Map<String, String>> cars = [];
-
-    // ================= SEDAN =================
+  List<Map<String, String>> getCars() {
     if (selectedType == 'Sedan') {
       if (selectedCategory == 'Economy Class') {
-        cars = [
+        return [
           {
-            'name': 'Maruti Suzuki Dzire',
+            'name': 'Honda Amaze',
             'price': '₹2500/day',
-            'image': 'assets/images/dzire.jpg',
+            'image': 'assets/images/amaze.webp',
           },
         ];
-      } else if (selectedCategory == 'Standard Class') {
-        cars = [
+      }
+      if (selectedCategory == 'Standard Class') {
+        return [
           {
             'name': 'Honda City',
             'price': '₹3500/day',
-            'image': 'assets/images/city.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Premium Class') {
-        cars = [
-          {
-            'name': 'Skoda Slavia',
-            'price': '₹5000/day',
-            'image': 'assets/images/slavia.jpg',
+            'image': 'assets/images/city.webp',
           },
         ];
       }
+      return [
+        {
+          'name': 'Skoda Slavia',
+          'price': '₹5000/day',
+          'image': 'assets/images/slavia.webp',
+        },
+      ];
     }
-    // ================= HATCHBACK =================
-    else if (selectedType == 'Hatchback') {
+
+    if (selectedType == 'Hatchback') {
       if (selectedCategory == 'Economy Class') {
-        cars = [
+        return [
           {
             'name': 'Maruti Swift',
             'price': '₹2000/day',
-            'image': 'assets/images/swift.jpg',
+            'image': 'assets/images/swift.webp',
           },
         ];
-      } else if (selectedCategory == 'Standard Class') {
-        cars = [
+      }
+      if (selectedCategory == 'Standard Class') {
+        return [
           {
             'name': 'Hyundai i20',
             'price': '₹3000/day',
-            'image': 'assets/images/i20.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Premium Class') {
-        cars = [
-          {
-            'name': 'Hyundai i20 Premium',
-            'price': '₹3500/day',
-            'image': 'assets/images/i20.jpg',
+            'image': 'assets/images/i20.webp',
           },
         ];
       }
+      return [
+        {
+          'name': 'Maruti Baleno',
+          'price': '₹3500/day',
+          'image': 'assets/images/baleno.webp',
+        },
+      ];
     }
-    // ================= SUV =================
-    else if (selectedType == 'SUV') {
+
+    if (selectedType == 'SUV') {
       if (selectedCategory == 'Economy Class') {
-        cars = [
+        return [
           {
             'name': 'Maruti Brezza',
             'price': '₹3000/day',
-            'image': 'assets/images/brezza.jpg',
+            'image': 'assets/images/brezza.webp',
           },
         ];
-      } else if (selectedCategory == 'Standard Class') {
-        cars = [
+      }
+      if (selectedCategory == 'Standard Class') {
+        return [
           {
             'name': 'Hyundai Creta',
             'price': '₹4000/day',
-            'image': 'assets/images/creata.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Premium Class') {
-        cars = [
-          {
-            'name': 'Hyundai Venue',
-            'price': '₹5500/day',
-            'image': 'assets/images/venue.jpg',
+            'image': 'assets/images/creta.webp',
           },
         ];
       }
+      return [
+        {
+          'name': 'Hyundai Creta Premium',
+          'price': '₹5500/day',
+          'image': 'assets/images/creta.webp',
+        },
+      ];
     }
-    // ================= MPV =================
-    else if (selectedType == 'MPV') {
+
+    if (selectedType == 'MPV') {
       if (selectedCategory == 'Economy Class') {
-        cars = [
+        return [
           {
             'name': 'Kia Carens',
             'price': '₹3500/day',
-            'image': 'assets/images/kia_carens.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Standard Class') {
-        cars = [
-          {
-            'name': 'Toyota Innova',
-            'price': '₹5000/day',
-            'image': 'assets/images/innova.jpg',
-          },
-        ];
-      } else if (selectedCategory == 'Premium Class') {
-        cars = [
-          {
-            'name': 'Kia Carnival',
-            'price': '₹7000/day',
-            'image': 'assets/images/carnival.jpg',
+            'image': 'assets/images/carens.webp',
           },
         ];
       }
+      if (selectedCategory == 'Standard Class') {
+        return [
+          {
+            'name': 'Toyota Innova',
+            'price': '₹5000/day',
+            'image': 'assets/images/innova.webp',
+          },
+        ];
+      }
+      return [
+        {
+          'name': 'Kia Carnival',
+          'price': '₹7000/day',
+          'image': 'assets/images/carnival.webp',
+        },
+      ];
     }
 
+    return [];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cars = getCars();
+
     return Scaffold(
-      appBar: AppBar(title: Text('$selectedCategory Cars'), centerTitle: true),
+      appBar: AppBar(
+        title: Text('$selectedCategory Cars'),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF1565C0),
+        foregroundColor: Colors.white,
+      ),
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFE3F2FD), Color(0xFFF3E5F5), Color(0xFFE8F5E9)],
+            colors: [
+              Color(0xFFE3F2FD),
+              Color(0xFFF3E5F5),
+              Color(0xFFE8F5E9),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -144,17 +156,21 @@ class CarListScreen extends StatelessWidget {
             ? const Center(
                 child: Text(
                   'No cars available',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               )
             : GridView.builder(
                 padding: const EdgeInsets.all(16),
                 itemCount: cars.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 1.5,
+                  childAspectRatio: 1.1,
                 ),
                 itemBuilder: (context, index) {
                   final car = cars[index];
@@ -175,6 +191,7 @@ class CarListScreen extends StatelessWidget {
                     },
                     child: Card(
                       elevation: 6,
+                      margin: EdgeInsets.zero,
                       clipBehavior: Clip.antiAlias,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -189,14 +206,11 @@ class CarListScreen extends StatelessWidget {
                                 car['image']!,
                                 fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: Colors.blue.shade50,
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.directions_car,
-                                        size: 70,
-                                        color: Colors.blue,
-                                      ),
+                                  return const Center(
+                                    child: Icon(
+                                      Icons.directions_car,
+                                      size: 70,
+                                      color: Colors.blue,
                                     ),
                                   );
                                 },
@@ -204,18 +218,21 @@ class CarListScreen extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Container(
                               width: double.infinity,
                               color: Colors.white,
+                              padding: const EdgeInsets.all(8),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     car['name']!,
                                     textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -223,7 +240,7 @@ class CarListScreen extends StatelessWidget {
                                   Text(
                                     car['price']!,
                                     style: const TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.green,
                                     ),

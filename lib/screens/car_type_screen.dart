@@ -1,35 +1,39 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'car_category_screen.dart';
 
 class CarTypeScreen extends StatelessWidget {
   const CarTypeScreen({super.key});
 
   final List<Map<String, String>> carTypes = const [
-    {'name': 'Sedan', 'image': 'assets/images/sedan.jpg'},
-    {'name': 'Hatchback', 'image': 'assets/images/hatchback.jpg'},
-    {'name': 'SUV', 'image': 'assets/images/suv.jpg'},
-    {'name': 'MPV', 'image': 'assets/images/mpv.jpg'},
+    {'name': 'Sedan', 'image': 'assets/images/Sedan.webp'},
+    {'name': 'Hatchback', 'image': 'assets/images/Hatchback.webp'},
+    {'name': 'SUV', 'image': 'assets/images/SUV.webp'},
+    {'name': 'MPV', 'image': 'assets/images/MPV.webp'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Car Rental System'), centerTitle: true),
-
+      appBar: AppBar(
+        title: const Text('Car Rental System'),
+        centerTitle: true,
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFE3F2FD), Color(0xFFF3E5F5), Color(0xFFFFF3E0)],
+            colors: [
+              Color(0xFFE3F2FD),
+              Color(0xFFF3E5F5),
+              Color(0xFFFFF3E0),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-
         child: Column(
           children: [
             const SizedBox(height: 15),
-
             const Text(
               'Select the type of car you need',
               style: TextStyle(
@@ -38,42 +42,36 @@ class CarTypeScreen extends StatelessWidget {
                 color: Color(0xFF37474F),
               ),
             ),
-
             const SizedBox(height: 15),
-
             Expanded(
               child: GridView.builder(
                 padding: const EdgeInsets.all(15),
-
                 itemCount: carTypes.length,
-
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
                   childAspectRatio: 2.0,
                 ),
-
                 itemBuilder: (context, index) {
                   final carType = carTypes[index];
 
                   return InkWell(
                     borderRadius: BorderRadius.circular(18),
-
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              CarCategoryScreen(selectedType: carType['name']!),
+                          builder: (context) => CarCategoryScreen(
+                            selectedType: carType['name']!,
+                          ),
                         ),
                       );
                     },
-
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(18),
-
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withValues(alpha: 0.15),
@@ -82,50 +80,45 @@ class CarTypeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(18),
-
                         child: Stack(
                           fit: StackFit.expand,
-
                           children: [
                             Image.asset(
                               carType['image']!,
                               fit: BoxFit.cover,
-
                               errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  color: Colors.blueGrey.shade100,
-
-                                  child: const Icon(
-                                    Icons.directions_car,
+                                debugPrint(
+                                  'Failed image: ${carType['image']} - $error',
+                                );
+                                return const Center(
+                                  child: Icon(
+                                    Icons.broken_image,
                                     size: 50,
-                                    color: Colors.blue,
+                                    color: Colors.red,
                                   ),
                                 );
                               },
                             ),
-
-                            Container(
-                              decoration: const BoxDecoration(
+                            const DecoratedBox(
+                              decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
-                                  colors: [Colors.transparent, Colors.black87],
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black87,
+                                  ],
                                 ),
                               ),
                             ),
-
                             Align(
                               alignment: Alignment.bottomCenter,
-
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
-
                                 child: Text(
                                   carType['name']!,
-
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
